@@ -23,7 +23,7 @@ const zone = compute.zone('europe-west3-c');
 
 zone.getVMs().then(function(data) {
   const vms = data[0];
-}
+});
 /**
  * Starts Compute Engine instances.
  *
