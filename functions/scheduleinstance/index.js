@@ -16,8 +16,14 @@
 // [START functions_stop_instance_pubsub]
 const Compute = require('@google-cloud/compute');
 const compute = new Compute();
+const zone = compute.zone('europe-west3-c');
 // [END functions_stop_instance_pubsub]
 
+
+
+zone.getVMs().then(function(data) {
+  const vms = data[0];
+}
 /**
  * Starts Compute Engine instances.
  *
@@ -36,7 +42,7 @@ exports.startInstancePubSub = async (event, context, callback) => {
       JSON.parse(Buffer.from(event.data, 'base64').toString())
     );
     const options = {filter: `labels.${payload.label}`};
-    const [vms] = await compute.getVMs(options);
+    const [vms] = await zone.getVMs(options);
     await Promise.all(
       vms.map(async (instance) => {
         if (payload.zone === instance.zone.id) {
@@ -80,7 +86,7 @@ exports.stopInstancePubSub = async (event, context, callback) => {
       JSON.parse(Buffer.from(event.data, 'base64').toString())
     );
     const options = {filter: `labels.${payload.label}`};
-    const [vms] = await compute.getVMs(options);
+    const [vms] = await zone.getVMs(options);
     await Promise.all(
       vms.map(async (instance) => {
         if (payload.zone === instance.zone.id) {
