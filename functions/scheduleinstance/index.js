@@ -19,7 +19,7 @@ async function main () {
 /*******************************************************************START*******************************************************************/
         
 const Compute = require('@google-cloud/compute');
-cconst compute = new Compute({
+const compute = new Compute({
 
     projectId: projectsPage[i]
 
