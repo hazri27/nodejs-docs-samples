@@ -47,8 +47,8 @@ quickstart();
  *  completion.
  */
 exports.startInstancePubSub = async (event, context, callback) => {
-   try {
-    for (var i = 0; i < tst_array.length; i++){
+  try {
+   for (var i = 0; i < tst_array.length; i++){
     const compute = new Compute({
     projectId: tst_array[i]
  //   projectId: 'ab-gcp-tst-common-kafka-tst'
@@ -65,7 +65,6 @@ zone.getVMs().then(function(data) {
     const payload = _validatePayload(
       JSON.parse(Buffer.from(event.data, 'base64').toString())
     );
-    
     const options = {filter: `labels.${payload.label}`};
     const [vms] = await zone.getVMs(options);
     await Promise.all(
@@ -78,14 +77,12 @@ zone.getVMs().then(function(data) {
  
           // Operation pending
           return operation.promise();
-        } else {
-          return Promise.resolve();
         }
       })
     );
  
-    // Operation complete. Instance successfully stopped.
-    const message = `Successfully stopped instance(s)`;
+    // Operation complete. Instance successfully started.
+    const message = `Successfully started instance(s)`;
     console.log(message);
     callback(null, message);
   }} catch (err) {
